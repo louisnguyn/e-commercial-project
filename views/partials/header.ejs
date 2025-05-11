@@ -1,0 +1,29 @@
+<header class="header">
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo.png" alt="Website logo" />
+        </a>
+    </div>
+    <nav class="nav-links">
+        <a href="/products" class="<%= currentPage === 'products' ? 'active' : '' %>">
+            <i class="fa-solid fa-box"></i> Products
+        </a>
+        <a href="/orders" class="<%= currentPage === 'orders' ? 'active' : '' %>">
+            <i class="fa-solid fa-receipt"></i> Orders
+        </a>
+        <a href="/chat" class="<%= currentPage === 'chat' ? 'active' : '' %>">
+            <i class="fa-solid fa-message"></i> Chat
+        </a>
+        <a href="/profile" class="<%= currentPage === 'profile' ? 'active' : '' %>">
+            <i class="fa-solid fa-user"></i> Profile
+        </a>
+    </nav>
+    <nav class="nav-links">
+        <a href="/login">
+            <i class="fa-solid fa-user"></i> Login
+        </a>
+        <a href="/cart" class="<%= currentPage === 'cart' ? 'active' : '' %>">
+            <i class="fa-solid fa-cart-shopping"></i> 
+        </a>
+    </nav>
+</header>

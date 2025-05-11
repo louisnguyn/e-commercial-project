@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body class="userManagementBody">
+    <main>
+      <div class="userManagementContent">
+        <form action="/login" method="POST" class="formContainer">
+            <a href="/" style="text-align: center;">
+                <img src="/images/logo.png" alt="Logo" width="80px" height="80px" />
+            </a>
+            <div style="text-align: center;">
+                <h1>Login</h1>
+            </div>
+            <div class="userInput">
+                <input type="email" id="email" name="email" placeholder=" " required />
+                <label for="email">Email</label>
+            </div>
+            <div class="userInput">
+                <input type="password" id="password" name="password" placeholder=" " required />
+                <label for="password">Password</label>
+            </div>
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="/register">Register</a></p>
+        </form>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head', { title: 'User Profile' }) %>
+  <link rel="stylesheet" href="/stylesheets/styleProfile.css" />
+  <body>
+    <%- include('../partials/header', { currentPage: 'profile' }) %>
+    <main>
+      <div class="mainContent">
+        <section class="profileSection">
+          <div class="profileHeader">
+            <h1>User Profile</h1>
+          </div>
+          <div class="profileInfo">
+            <h2>Personal Information</h2>
+            <p><strong>Full Name:</strong> </p>
+            <p><strong>Email:</strong></p>
+            <p><strong>Phone Number:</strong> </p>
+          </div>
+          <div class="profileActions">
+            <a href="/profile/edit" class="buttonLink">
+              <button type="button">Edit Profile</button>
+            </a>
+            <a href="/profile/reset" class="buttonLink">
+              <button type="button">Reset Password</button>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
