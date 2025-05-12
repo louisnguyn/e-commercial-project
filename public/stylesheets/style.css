@@ -1,16 +1,10 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: hsl(44, 87%, 94%); 
-  color: #333333;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
-.userManagementBody{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 180px;
+    font-family: 'Roboto', sans-serif;
+    background-color: hsl(44, 87%, 94%); 
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
 .header {
     background-color: hsl(44, 87%, 90%); 
@@ -67,11 +61,12 @@ button, .btn {
     background-color: hsl(27, 87%, 70%);
     color: #FFFFFF;
     border: none;
-    border-radius: 5px;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    border: 1.5px solid black;
+    box-shadow: 4px 4px 0px 1px black;
     transition: background-color 0.3s ease;
 }
 
@@ -82,12 +77,18 @@ button:hover, .btn:hover {
 button:active, .btn:active {
     background-color: hsl(15, 67%, 60%);
 }
+/*User management style*/
+.userManagementBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
 .userManagementContent{
     margin: 0;
     background-color: white;
-    width: 100%;
-    padding: 15px 30px;
-    max-width: 600px;
+    width: 350px;
+    padding: 15px 100px;
     border: 1.5px solid black;
     box-shadow: 4px 4px 0px 2px black;
 }
@@ -96,4 +97,39 @@ button:active, .btn:active {
     flex-direction: column;
     gap: 10px;
 }
-
+.userManagementContent .userInput{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+.userManagementContent .userInput label{
+    font-weight: bold;
+}
+.userManagementContent .userInput input{
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.userManagementContent .userInput input:focus{
+    border-color: hsl(44, 87%, 70%);
+    outline: none;
+    box-shadow: 0 0 8px hsl(44, 87%, 70%);
+}
+.userFormFooter{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+.userManagementLink{
+    color: hsl(27, 87%, 70%);
+    text-decoration: none;
+    font-weight: bold;
+}
+.userManagementLink:hover {
+  text-decoration: underline;
+}
+.userManagementLink:active, .userManagementLink:visited{
+    color: hsl(15, 67%, 60%);
+}
