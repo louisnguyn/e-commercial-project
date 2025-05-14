@@ -120,7 +120,7 @@ main{
     font-size: 1.2rem;
     width: 20px;
 }
-.dropdownContent a:hover {
+.nav-links .dropdownContent a:hover {
     background-color: hsl(27, 87%, 70%);
     color: #000;
 }
@@ -339,22 +339,197 @@ button:active, .btn:active {
   border-bottom: 3px solid black;
 }
 
-/* .product-grid {
+/* Purchase tab */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    max-width: 1200px;
+    gap: 30px;
+    margin: 20px 5px;
+    justify-content: center;
+}
+.productCard {
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.1);
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productCard img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+.productPrice {
+    font-family: "Roboto Serif";
+    display: inline-block;
+    background-color: hsl(27, 87%, 70%);
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 120px;
+    text-align: center;
+}
+.productCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px hsla(0, 0%, 0%, 0.2);
+}
+
+/* Product Description */
+.descriptionContainer {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 50px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.productImageSection img {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    max-width: 700px; 
+    max-height: 700px; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.productDetailsSection {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.productTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.productPrice {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.stockStatus {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.lowStock {
+  color: red;
+}
+
+.inStock {
+  color: green;
+}
+
+.productDescription {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.addToCartForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quantityInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantityInput label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+#quantity {
+    width: 60px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    padding: 5px;
+    height: 35px;
+}
+
+/* Sell tab */
+.createListingContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0; 
+}
+.sellGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 650px);
+  gap: 30px;
+  padding: 0 20px;
+  justify-content: center;
 }
 
-.product-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-.add-to-cart-btn {
-  background-color: black;
-  color: white;
-  padding: 5px 10px;
+.sellCard {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
   border: none;
-  cursor: pointer;
-} */
+  border-radius: 8px;
+  background-color: #fff;
+  border: 0.5px solid #ddd;
+  box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sellCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px hsla(0, 0%, 0%, 0.2);
+}
+.sellCard img {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+}
+
+.productDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productActions {
+  display: flex;
+  gap: 10px;
+}
+
+.productActions .deleteBtn {
+  background-color: hsl(0, 76%, 65%);
+}
+
+.productActions .deleteBtn:hover {
+  background-color: hsl(0, 66%, 55%);
+}
+
+.productActions .toggleStatusBtn {
+  background-color: hsl(44, 87%, 70%);
+}
+
+.productActions .toggleStatusBtn:hover {
+  background-color: hsl(44, 87%, 60%);
+}
+
+

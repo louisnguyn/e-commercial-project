@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head', { title }) %>
+  <body>
+    <%- include('../partials/header', { currentPage: 'products' }) %>
+    <main>
+      <div class="descriptionContainer">
+        <div class="productImageSection">
+            <img src="<%= product.image %>" alt="<%= product.title %>" />
+        </div>
+        <div class="productDetailsSection">
+            <h1 class="productTitle"><%= product.title %></h1>
+            <p class="productPrice">$<%= product.price %></p>
+            <% if (product.quantity < 3) { %>
+                <p class="stockStatus lowStock">Only <%= product.quantity %> left! Be quick!</p>
+            <% } else { %>
+                <p class="stockStatus inStock">In stock: <%= product.quantity %> available products</p>
+            <% } %>
+            <form action="/cart/add" method="POST" class="addToCartForm">
+                <input type="hidden" name="productId" value="<%= product.id %>" />
+                <div class="quantityInput">
+                <label for="quantity">Quantity:</label>
+                <input 
+                    type="number" 
+                    id="quantity" 
+                    name="quantity" 
+                    value="1" 
+                    min="1" 
+                    max="<%= product.quantity %>" 
+                    required 
+                />
+                </div>
+                <button type="submit" class="addToCartBtn">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+            </form>
+            <div>
+                <h2>Description</h2>
+                <p class="productDescription"><%= product.description %></p>
+            </div>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

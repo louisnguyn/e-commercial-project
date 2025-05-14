@@ -5,3 +5,4 @@ export const productRouter = express.Router();
 productRouter.get('/', productController.renderProductPage);
 productRouter.get('/purchase',productController.renderProductPage); 
 productRouter.get('/sell', productController.renderProductPage); 
+productRouter.get('/:id', productController.renderProductDescriptionPage);

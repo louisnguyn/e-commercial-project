@@ -14,10 +14,49 @@
         <div class="tabContent">
           <% if (currentTab === 'purchase') { %>
             <h2>Purchase</h2>
-
+              <div class="productGrid">
+                <% products.forEach(product => { %>
+                  <a href="/products/<%= product.id %>" class="productCard">
+                    <img src="<%= product.image %>" alt="<%= product.title %>" />
+                    <h3><%= product.title %></h3>
+                    <p class="productPrice">$<%= product.price %></p>
+                    <form action="/cart/add" method="POST">
+                      <input type="hidden" name="productId" value="<%= product.id %>" />
+                      <button type="submit" class="addToCartBtn">Add to Cart</button>
+                    </form>
+                  </a>
+                <% }) %>
+              </div>
           <% } else if (currentTab === 'sell') { %>
-            <h2>Sell</h2>
-
+            <div class="createListingContainer">
+              <a href="/products/sell/create" class="createListingBtn">
+                <button>Create a New Listing</button>
+              </a>
+            </div>
+            <div class="sellGrid">
+              <% products.forEach(product => { %>
+                <div class="sellCard">
+                  <img src="<%= product.image %>" alt="<%= product.title %>" />
+                  <div>
+                    <h3><%= product.title %></h3>
+                    <p>Price: $<%= product.price %> ● Status: <%= product.status %> ● Quantity: <%= product.quantity %></p>
+                    <div class="productActions">
+                      <a href="/products/sell/edit/<%= product.id %>" class="editBtn"><button>Edit</button></a>
+                      <form action="/products/sell/delete" method="POST" class="deleteForm">
+                        <input type="hidden" name="productId" value="<%= product.id %>" />
+                        <button type="submit" class="deleteBtn">Delete</button>
+                      </form>
+                      <form action="/products/sell/toggle-status" method="POST" class="toggleStatusForm">
+                        <input type="hidden" name="productId" value="<%= product.id %>" />
+                        <button type="submit" class="toggleStatusBtn">
+                          <%= product.status === 'Available' ? 'Mark as Unavailable' : 'Mark as Available' %>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
           <% } %>
         </div>
       </div>
