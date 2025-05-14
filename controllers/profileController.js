@@ -27,3 +27,12 @@ export async function renderChangPasswordPage(req,res,next){
         next(error);
     }
 }
+
+export function logoutUser(req, res) {
+    req.session.destroy((error) => {
+        if (error) {
+            return res.status(500).send('Failed to log out');
+        }
+        res.redirect('/login');
+    });
+}

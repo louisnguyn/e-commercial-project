@@ -8,5 +8,13 @@ CREATE TABLE IF NOT EXISTS product(
     description TEXT NOT NULL,
     category VARCHAR(100) NOT NULL,
     image text ,
-    userId INT NOT NULL REFERENCES users(id)
+    userid INT NOT NULL REFERENCES users(id)
 );
+INSERT INTO product (id, title, price, status, quantity, date, description, category, image, userid) VALUES
+(1, 'MacBook Pro', 299, 'Available', 2, '2025-03-22', 'Like new', 'Electronics', '/image/macbookPro.jpeg',1),
+(2, 'iPhone 13', 999, 'Unavailable', 3, '2025-03-15', '80% battery', 'Electronics', '/image/iphone13.jpeg',1),
+(3, 'Python textbook', 199, 'Available', 5, '2025-04-10', 'Python programming for beginners', 'Textbooks', '/image/textbook.jpeg',1),
+(4, 'Backpack', 65, 'Available', 50, '2025-04-01', 'Have used for 2 years, fit with laptop', 'Accessories', '/image/bag.jpeg',1),
+(5, 'Ballpoint Pen', 2, 'Available', 100, '2025-04-05', 'Blue ink, smooth writing', 'Stationery', '/image/pen.jpeg',1),
+(6, 'Mac Mini', 299, 'Available', 4, '2025-03-22', 'Sealed', 'Electronics', '/image/macmini.jpeg',1);
+SELECT setval('product_id_seq', (SELECT MAX(id) FROM product));

@@ -15,7 +15,6 @@ export async function renderRegisterPage(req, res, next) {
     try {
         res.render('userManagement/register.ejs', {
         title: 'Register',
-        currentPage: 'register',
         });
     } catch (error) {
         next(error);
@@ -25,7 +24,7 @@ export async function renderRegisterPage(req, res, next) {
 export async function registerUser(req,res, next)
 {
     try{
-        const {fullName, email,password,confirmedPassword, securityQuestion, securityAnswer} = req.body;
+        const {fullName, email,password,confirmedPassword, securityQuestion, securityAnswer, phoneNumber} = req.body;
         if (password != confirmedPassword)
         {
             return res.status(400).send("Passwords do not match");
@@ -33,9 +32,10 @@ export async function registerUser(req,res, next)
         const hashedPassword = await bcrypt.hash(password,10);
         const hashedAnswer = await bcrypt.hash(securityAnswer,10);
         await sql`
-            INSERT INTO users (fullname,email,password,securityquestion,securityanswer)
-            VALUES (${fullName}, ${email}, ${hashedPassword}, ${securityQuestion}, ${hashedAnswer})
+            INSERT INTO users (fullname,email,phonenumber,password,securityquestion,securityanswer)
+            VALUES (${fullName}, ${email},${phoneNumber}, ${hashedPassword}, ${securityQuestion}, ${hashedAnswer})
         `;
+        res.redirect('/login');
     } catch (error){
         next(error);
     }
@@ -61,17 +61,10 @@ export async function loginUser(req, res, next) {
             fullname: user[0].fullname,
             email: user[0].email,
         };
+        console.log(req.session.user);
 
         res.redirect('/');
     } catch (error) {
         next(error);
     }
-}
-export function logoutUser(req, res) {
-    req.session.destroy((error) => {
-        if (error) {
-            return res.status(500).send('Failed to log out');
-        }
-        res.redirect('/login');
-    });
 }

@@ -14,22 +14,25 @@
         </a>
     </nav>
     <nav class="nav-links">
-        <div class="profileDropdown">
-            <button class="dropdownButton" data-toggle="dropdown">
-                <i class="fa-solid fa-user"></i> Louis Nguyen <i class="fa-solid fa-angle-up toggle-icon"></i>
-            </button>
-            <div class="dropdownContent" id="profileDropdownContent">
-                <a href="/profile"><i class="fa-solid fa-id-badge"></i>Profile</a>
-                <a href="/profile/edit"><i class="fa-solid fa-user-pen"></i>Edit Profile</a>
-                <a href="/profile/change-password"><i class="fa-solid fa-lock"></i>Change Password</a>
-                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+        <% if(user) {%>
+            <div class="profileDropdown">
+                <button class="dropdownButton" data-toggle="dropdown">
+                    <i class="fa-solid fa-user"></i> Louis Nguyen <i class="fa-solid fa-angle-up toggle-icon"></i>
+                </button>
+                <div class="dropdownContent" id="profileDropdownContent">
+                    <a href="/profile"><i class="fa-solid fa-id-badge"></i>Profile</a>
+                    <a href="/profile/edit"><i class="fa-solid fa-user-pen"></i>Edit Profile</a>
+                    <a href="/profile/change-password"><i class="fa-solid fa-lock"></i>Change Password</a>
+                    <a href="/profile/logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                </div>
             </div>
-        </div>
-        <a href="/login">
-            <i class="fa-solid fa-right-to-bracket"></i> Login
-        </a>
-        <a href="/cart" class="<%= currentPage === 'cart' ? 'active' : '' %>">
-            <i class="fa-solid fa-cart-shopping"></i> Shopping cart()
-        </a>
+            <a href="/cart" class="<%= currentPage === 'cart' ? 'active' : '' %>">
+                <i class="fa-solid fa-cart-shopping"></i> Shopping cart()
+            </a>
+        <% } else { %>
+            <a href="/login">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </a>
+        <% } %>
     </nav>
 </header>

@@ -311,3 +311,50 @@ button:active, .btn:active {
   outline: none;
   box-shadow: 0 0 8px hsl(44, 87%, 70%);
 }
+
+/* Product page*/
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.tabContainer a {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: black;
+  text-align: center;
+}
+
+.tabContainer a:hover {
+  border-bottom: 3px solid gray;
+}
+
+.tabContainer a.tabActive {
+  font-weight: bold;
+  border-bottom: 3px solid black;
+}
+
+/* .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.add-to-cart-btn {
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+} */

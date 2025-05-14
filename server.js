@@ -25,7 +25,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } 
-}))
+}));
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 app.use('/', homeRouter);
 app.use('/products',productRouter);

@@ -5,3 +5,4 @@ export const profileRouter = express.Router();
 profileRouter.get('/', profileController.renderProfilePage);
 profileRouter.get('/edit',profileController.renderEditProfilePage);
 profileRouter.get('/change-password',profileController.renderChangPasswordPage);
+profileRouter.get('/logout',profileController.logoutUser);

@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(50) DEFAULT 'user',
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+INSERT INTO users (id, fullname, email, password, phonenumber, securityquestion, securityanswer, role)
+VALUES (1, 'Louis Nguyen', 'louisnguyn@gmail.com', '$2b$10$IASzyn1XZaI4hCVU48U7XeiJfWNTK7m.C82K3kt3PX2LyQks5hC8S', '0415111222', 'What is your girl friend name?', '$2b$10$wmK89rV/5Xv1Be9F5ADMo.uNaB7oM2jq2od6HGF7Jb7M7cZWWZWCG', 'user');
