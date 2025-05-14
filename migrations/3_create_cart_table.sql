@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS cart (
+    id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL REFERENCES product(id) ON DELETE CASCADE,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    userId INT NOT NULL REFERENCES users(id)
+);

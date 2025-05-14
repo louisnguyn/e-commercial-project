@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/stylesheets/styleProfile.css" />
+  <body>
+    <%- include('../partials/header', { currentPage: 'profile' }) %>
+    <main>
+      <div class="profileMainContent">
+        <section class="profileSection">
+          <form action="/profile/edit" method="POST" class="profileForm">
+            <div class="profileHeader">
+                <h1>Edit Profile</h1>
+            </div>
+            <div class="profileFormGroup">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" name="fullName" value="Louis Nguyen"/>
+            </div>
+            <div class="profileFormGroup">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" value="louis@example.com"/>
+            </div>
+            <div class="profileFormGroup">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" value="+61412345678"/>
+            </div>
+            <button type="submit" class="btn">Save Changes</button>
+          </form>
+        </section>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>
