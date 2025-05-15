@@ -14,19 +14,91 @@
         <div class="tabContent">
           <% if (currentTab === 'purchase') { %>
             <h2>Purchase</h2>
-              <div class="productGrid">
-                <% products.forEach(product => { %>
-                  <a href="/products/<%= product.id %>" class="productCard">
-                    <img src="<%= product.image %>" alt="<%= product.title %>" />
-                    <h3><%= product.title %></h3>
-                    <p class="productPrice">$<%= product.price %></p>
-                    <form action="/cart/add" method="POST">
-                      <input type="hidden" name="productId" value="<%= product.id %>" />
-                      <button type="submit" class="addToCartBtn">Add to Cart</button>
-                    </form>
-                  </a>
-                <% }) %>
+            <div class="purchaseContainer">
+              <aside class="filterSidebar">
+                <h3>Filter by category and price</h3>
+                <form action="/products/purchase" method="GET" class="filterForm">
+                    <% if (query) { %>
+                      <input type="hidden" name="query" value="<%= query %>" />
+                    <% } %>
+                    <% if (sort) { %>
+                      <input type="hidden" name="sort" value="<%= sort %>" />
+                    <% } %>
+                  <label>
+                    <input type="checkbox" name="category" value="Electronics" <%= selectedCategories?.includes('Electronics') ? 'checked' : '' %>> Electronics
+                  </label>
+                  <label>
+                    <input type="checkbox" name="category" value="Textbooks" <%= selectedCategories?.includes('Textbooks') ? 'checked' : '' %>> Textbooks
+                  </label>
+                  <label>
+                    <input type="checkbox" name="category" value="Accessories" <%= selectedCategories?.includes('Accessories') ? 'checked' : '' %>> Accessories
+                  </label>
+                  <label>
+                    <input type="checkbox" name="category" value="Stationery" <%= selectedCategories?.includes('Stationery') ? 'checked' : '' %>> Stationery
+                  </label>
+                  <label>
+                    <input type="checkbox" name="category" value="Other" <%= selectedCategories?.includes('Other') ? 'checked' : '' %>> Other
+                  </label>
+                  <div class="priceRange">
+                    <label for="minPrice">From:</label>
+                    <input type="text" id="minPrice" name="minPrice" placeholder="Min Price" value="<%= minPrice || '' %>"/>
+                    <label for="maxPrice">To:</label>
+                    <input type="text" id="maxPrice" name="maxPrice" placeholder="Max Price" value="<%= maxPrice || '' %>"/>
+                  </div>
+                  <button type="submit" class="btn">Apply Filters</button>
+                </form>
+              </aside>
+              <div class="productMainContent">
+                <div class="searchSortContainer">
+                  <form action="/products/purchase" method="GET" class="searchForm">
+                    <div class="searchInputContainer">
+                      <input type="text" id="searchInput" name="query" placeholder="Search products..." value="<%= query || '' %>"/>
+                      <div id="searchContent" class="searchContent"></div>
+                    </div>
+                    <button type="submit"><i class="fa-solid fa-search"></i></button>
+                  </form>
+                  <div>
+                    <a href="/products/purchase" class="btn" style="text-decoration: none;"> Clear Filters</a>
+                  </div>
+                  <form action="/products/purchase" method="GET" class="sortForm">
+                      <% if (query) { %>
+                        <input type="hidden" name="query" value="<%= query %>" />
+                      <% } %>
+                      <% if (selectedCategories) { %>
+                        <% selectedCategories.forEach(category => { %>
+                          <input type="hidden" name="category" value="<%= category %>" />
+                        <% }) %>
+                      <% } %>
+                      <% if (minPrice) { %>
+                        <input type="hidden" name="minPrice" value="<%= minPrice %>" />
+                      <% } %>
+                      <% if (maxPrice) { %>
+                        <input type="hidden" name="maxPrice" value="<%= maxPrice %>" />
+                      <% } %>
+                    <select name="sort" class="sortDropdown" onchange="this.form.submit()">
+                      <option value="">Sort By</option>
+                      <option value="price_asc" <%= sort === 'price_asc' ? 'selected' : '' %>>Price: Low to High</option>
+                      <option value="price_desc" <%= sort === 'price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+                      <option value="date_newest" <%= sort === 'date_newest' ? 'selected' : '' %>>Newest</option>
+                      <option value="date_oldest" <%= sort === 'date_oldest' ? 'selected' : '' %>>Oldest</option>
+                    </select>
+                  </form>
+                </div>
+                <div class="productGrid">
+                  <% products.forEach(product => { %>
+                    <a href="/products/<%= product.id %>" class="productCard">
+                      <img src="<%= product.image %>" alt="<%= product.title %>" />
+                      <h3><%= product.title %></h3>
+                      <p class="productPrice">$<%= product.price %></p>
+                      <form action="/cart/add" method="POST">
+                        <input type="hidden" name="productId" value="<%= product.id %>" />
+                        <button type="submit" class="addToCartBtn">Add to Cart</button>
+                      </form>
+                    </a>
+                  <% }) %>
+                </div>
               </div>
+            </div>
           <% } else if (currentTab === 'sell') { %>
             <div class="createListingContainer">
               <a href="/products/sell/create" class="createListingBtn">
