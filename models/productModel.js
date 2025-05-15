@@ -44,10 +44,11 @@ export async function getFilteredAndSortedProducts({ query, category, sort, minP
     return await products;
 }
 
-export async function createProduct({ title, price, quantity, description, category, image, userId }) {
+export async function createProduct({ title, price,status, quantity,date, description, category, image, userId }) {
     return await sql`
-        INSERT INTO product (title, price, quantity, description, category, image, userid)
-        VALUES (${title}, ${price}, ${quantity}, ${description}, ${category}, ${image}, ${userId})
+        INSERT INTO product (title, price,status, quantity,date, description, category, image, userid)
+        VALUES (${title}, ${price},${status}, ${quantity}, ${date}, ${description}, ${category}, ${image}, ${userId})
+        RETURNING *
     `;
 }
 

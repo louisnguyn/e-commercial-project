@@ -1,5 +1,5 @@
 import { getAllAvailableProducts, getProductById, getProductsByUserId, searchProduct, getFilteredAndSortedProducts, createProduct, updateProduct, deleteProduct, toggleProductStatus } from '../models/productModel.js';
-
+import { format } from 'date-fns';
 export async function renderProductPage(req, res, next) {
     try {
         const currentTab = req.path.includes('sell') ? 'sell' : 'purchase';
@@ -69,13 +69,28 @@ export async function renderCreateListingPage(req, res, next) {
 }
 
 export async function createListing(req, res, next) {
-    try {
-        const { title, price, quantity, description, category, image } = req.body;
-        const userId = req.session.user?.id;
-        if (!userId) {
-            return res.status(403).send('You must be logged in to create a listing.');
+    const { title, price, quantity, description, category} = req.body;
+    const userId = req.session.user?.id;
+    const status = "Available";
+    if (!userId) {
+        return res.status(403).send('You must be logged in to create a listing.');
+    }
+    let image = "/uploads/placeholderImage.jpeg";
+    if (req.files && req.files.image) {
+        const productImage = req.files.image;
+        const uploadPath = `public/uploads/${image.name}`;
+        try{    
+            await productImage.mv(uploadPath); 
+            image = `/uploads/${productImage.name}`; 
+        } catch (error) {
+            console.error("Failed to save image:", error);
+            return res.status(500).send('Failed to save image');
         }
-        await createProduct({ title, price, quantity, description, category, image, userId });
+    }
+    const date = format(new Date(), 'yyyy-MM-dd');
+    console.log({ title, price,status, quantity, date, description, category,image, userId })
+    try {
+        await createProduct({ title, price,status, quantity,date, description, category,image, userId });
         res.redirect('/products/sell');
     } catch (error) {
         next(error);
