@@ -10,6 +10,7 @@ import { chatRouter } from './routes/chatRoute.js';
 import { profileRouter } from './routes/profileRoute.js';
 import { loginRouter, registerRouter } from './routes/userManagementRoute.js';
 import { getCartByUserId } from './models/cartModel.js';
+import { salesRouter } from './routes/saleRoute.js';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use('/chat',chatRouter);
 app.use('/profile',profileRouter);
 app.use('/login',loginRouter);
 app.use('/register',registerRouter);
+app.use('/sales',salesRouter);
 const PORT = process.env.PORT;
 app.listen(PORT,() => {
     console.log(`Server is running on port ${PORT}`);
