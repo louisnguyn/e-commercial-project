@@ -26,8 +26,13 @@
                     <a href="/profile/logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-            <a href="/cart" class="<%= currentPage === 'cart' ? 'active' : '' %>">
-                <i class="fa-solid fa-cart-shopping"></i> Shopping cart()
+            <a href="/cart" class="<%= currentPage === 'cart' ? 'active' : '' %> cartNavLink">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <% if (cartCount > 0) { %>
+                <span id="cartCount" class="cartBadge"><%= cartCount %></span>
+                <% } else { %>
+                <span id="cartCount" class="cartBadge" style="display:none;">0</span>
+                <% } %>
             </a>
         <% } else { %>
             <a href="/login">

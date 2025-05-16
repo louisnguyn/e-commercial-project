@@ -9,6 +9,7 @@ import { cartRouter } from './routes/cartRoute.js';
 import { chatRouter } from './routes/chatRoute.js';
 import { profileRouter } from './routes/profileRoute.js';
 import { loginRouter, registerRouter } from './routes/userManagementRoute.js';
+import { getCartByUserId } from './models/cartModel.js';
 
 dotenv.config();
 
@@ -29,6 +30,15 @@ app.use(session({
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
+});
+app.use(async (req, res, next) => {
+  if (req.session.user?.id) {
+    const cartItems = await getCartByUserId(req.session.user.id);
+    res.locals.cartCount = cartItems.reduce((sum, item) => sum + Number(item.quantity), 0);
+  } else {
+    res.locals.cartCount = 0;
+  }
+  next();
 });
 
 app.use('/', homeRouter);

@@ -5,12 +5,14 @@
     <%- include('../partials/header', { currentPage: 'products' }) %>
     <main>
       <div class="mainContent">
+        <% if (user) { %>
         <section class="tabContainer">
           <div>
             <a href="/products/purchase" class="<%= currentTab === 'purchase' ? 'tabActive' : '' %>">Purchase</a>
             <a href="/products/sell" class="<%= currentTab === 'sell' ? 'tabActive' : '' %>">Sell</a>
           </div>
         </section>
+        <% } %>
         <div class="tabContent">
           <% if (currentTab === 'purchase') { %>
             <h2>Purchase</h2>
@@ -61,22 +63,23 @@
                     <a href="/products/purchase" class="btn" style="text-decoration: none;"> Clear Filters</a>
                   </div>
                   <form action="/products/purchase" method="GET" class="sortForm">
-                      <% if (query) { %>
-                        <input type="hidden" name="query" value="<%= query %>" />
-                      <% } %>
-                      <% if (selectedCategories) { %>
-                        <% selectedCategories.forEach(category => { %>
-                          <input type="hidden" name="category" value="<%= category %>" />
-                        <% }) %>
-                      <% } %>
-                      <% if (minPrice) { %>
-                        <input type="hidden" name="minPrice" value="<%= minPrice %>" />
-                      <% } %>
-                      <% if (maxPrice) { %>
-                        <input type="hidden" name="maxPrice" value="<%= maxPrice %>" />
-                      <% } %>
+                    <% if (query) { %>
+                      <input type="hidden" name="query" value="<%= query %>" />
+                    <% } %>
+                    <% if (selectedCategories) { %>
+                      <% selectedCategories.forEach(category => { %>
+                        <input type="hidden" name="category" value="<%= category %>" />
+                      <% }) %>
+                    <% } %>
+                    <% if (minPrice) { %>
+                      <input type="hidden" name="minPrice" value="<%= minPrice %>" />
+                    <% } %>
+                    <% if (maxPrice) { %>
+                      <input type="hidden" name="maxPrice" value="<%= maxPrice %>" />
+                    <% } %>
+                    <label for="sort" style="margin-right: 10px;">Sort by: </label>
                     <select name="sort" class="sortDropdown" onchange="this.form.submit()">
-                      <option value="">Sort By</option>
+                      <option value=""></option>
                       <option value="price_asc" <%= sort === 'price_asc' ? 'selected' : '' %>>Price: Low to High</option>
                       <option value="price_desc" <%= sort === 'price_desc' ? 'selected' : '' %>>Price: High to Low</option>
                       <option value="date_newest" <%= sort === 'date_newest' ? 'selected' : '' %>>Newest</option>
@@ -90,7 +93,7 @@
                       <img src="<%= product.image %>" alt="<%= product.title %>" />
                       <h3><%= product.title %></h3>
                       <p class="productPrice">$<%= product.price %></p>
-                      <form action="/cart/add" method="POST">
+                      <form action="/cart/add" method="POST" class="addToCartForm">
                         <input type="hidden" name="productId" value="<%= product.id %>" />
                         <button type="submit" class="addToCartBtn">Add to Cart</button>
                       </form>
@@ -135,4 +138,5 @@
     </main>
     <%- include('../partials/footer') %>
   </body>
+  <script src="/scripts/addToCartMessage.js"></script>
 </html>

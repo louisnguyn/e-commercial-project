@@ -38,14 +38,17 @@
           </div>
           <div class="listingGroupRow">
             <div class="listingGroup">
-              <label for="image">Image</label>
+              <label for="image" class="btn"><i class="fa-solid fa-upload"></i>Upload Image</label>
               <input type="file" id="image" name="image" accept="image/*" />
             </div>
             <div class="listingGroup">
-                <img id="imagePreview" src="/uploads/placeholderImage.jpeg" alt="Image Preview" />
+                <img id="imagePreview" src="/uploads/emptyProductImage.jpeg" alt="Image Preview" />
             </div>
           </div>
-          <button type="submit" class="btn">Create Listing</button>
+          <div class="listingGroupRow">
+            <button type="submit" class="btn">Create listing</button>
+            <a href="/products/sell" class="btn" style="text-align: center;"><div>Cancel</div></a>
+          </div>
         </form>
       </div>
     </main>

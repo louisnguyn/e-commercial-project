@@ -75,17 +75,18 @@ export async function createListing(req, res, next) {
     if (!userId) {
         return res.status(403).send('You must be logged in to create a listing.');
     }
-    let image = "/uploads/placeholderImage.jpeg";
-    if (req.files && req.files.image) {
-        const productImage = req.files.image;
-        const uploadPath = `public/uploads/${image.name}`;
-        try{    
-            await productImage.mv(uploadPath); 
-            image = `/uploads/${productImage.name}`; 
-        } catch (error) {
-            console.error("Failed to save image:", error);
-            return res.status(500).send('Failed to save image');
-        }
+    if (!req.files || !req.files.image) {
+        return res.status(400).send('Image upload is required.');
+    }
+    let image;
+    const productImage = req.files.image;
+    const uploadPath = `public/uploads/${productImage.name}`;
+    try{    
+        await productImage.mv(uploadPath); 
+        image = `/uploads/${productImage.name}`; 
+    } catch (error) {
+        console.error("Failed to save image:", error);
+        return res.status(500).send('Failed to save image');
     }
     const date = format(new Date(), 'yyyy-MM-dd');
     console.log({ title, price,status, quantity, date, description, category,image, userId })
@@ -104,6 +105,7 @@ export async function renderEditListingPage(req, res, next) {
         if (!product) {
             return res.status(404).send('Product not found');
         }
+        console.log(product);
         res.render('product/editListing.ejs', {
             title: 'Edit Listing', 
             product 
@@ -116,7 +118,15 @@ export async function renderEditListingPage(req, res, next) {
 export async function editListing(req, res, next) {
     try {
         const { id } = req.params;
-        const { title, price, quantity, description, category, image } = req.body;
+        const { title, price, quantity, description, category} = req.body;
+        const [product] = await getProductById(id);
+        let image = product.image;
+        if (req.files && req.files.image) {
+            const productImage = req.files.image;
+            const uploadPath = `public/uploads/${productImage.name}`;
+            await productImage.mv(uploadPath);
+            image = `/uploads/${productImage.name}`;
+        }
         await updateProduct({ id, title, price, quantity, description, category, image });
         res.redirect('/products/sell');
     } catch (error) {
@@ -143,4 +153,6 @@ export async function toggleListingStatus(req, res, next) {
         next(error);
     }
 }
+
+
 

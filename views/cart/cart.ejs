@@ -4,9 +4,63 @@
   <body>
     <%- include('../partials/header', { currentPage: 'cart' }) %>
     <main>
-      <div class="mainContent">
-        <h1>Cart Page</h1>
-        <p>Review the items in your cart before checkout.</p>
+      <div class="mainContent cartPage">
+        <% if (cartItems && cartItems.length > 0) { 
+          let total = 0; 
+          %>
+          <h1 class="cartTitle">Your Cart</h1>
+          <p class="cartSubtitle">Review the items in your cart before checkout.</p>
+          <div class="cartList">
+            <% cartItems.forEach(item => { 
+              total += Number(item.price) * Number(item.quantity);
+              %>
+              <div class="cartItem">
+                <img src="<%= item.image %>" alt="<%= item.title %>" class="cartItemImage" />
+                <div class="cartItemDetails">
+                  <div class="cartItemTitle"><%= item.title %></div>
+                  <!-- <div class="cartItemPrice">$<%= item.price %> 
+
+                  </div> -->
+                  <form action="/cart/update" method="POST" class="updateCartForm">
+                    <input type="hidden" name="productId" value="<%= item.productid %>" />
+                    <div class="cartItemPrice">
+                      $<%= item.price %> x 
+                      <input 
+                        type="number" 
+                        name="quantity" 
+                        value="<%= item.quantity %>" 
+                        min="1" 
+                        max="<%= item.maxQuantity || item.product_quantity%>" 
+                        class="cartQuantityInput"
+                        style="width: 30px;text-align:center; height: 30px;"
+                        onchange="this.form.submit()"
+                        required
+                      />
+                      <span style="font-size:0.9em;color:#888;">(max: <%= item.maxQuantity || item.product_quantity || 99 %>)</span>
+                    </div>
+                  </form>
+                </div>
+                <form action="/cart/remove" method="POST" class="removeCartForm">
+                  <input type="hidden" name="productId" value="<%= item.productid %>" />
+                  <button type="submit" class="removeCartBtn" title="Remove from cart">
+                    <i class="fa-solid fa-trash"></i> Remove
+                  </button>
+                </form>
+              </div>
+            <% }) %>
+          </div>
+          <div class="cartTotalContainer" style="text-align:right; margin-top:30px;">
+            <span class="cartTotalLabel" style="font-size:1.3rem;font-weight:bold;">Total:</span>
+            <span class="cartTotalValue" style="font-size:1.5rem;font-weight:bold;">$<%= total.toFixed(2) %></span>
+          </div>
+        <% } else { %>
+          <div class="emptyCartContainer">
+            <i class="fa-solid fa-cart-shopping emptyCartIcon"></i>
+            <h2 class="emptyCartTitle">Your cart is empty</h2>
+            <p class="emptyCartText">Browse products and add them to your cart!</p>
+            <a href="/products/purchase" class="btn emptyCartBtn">Shop Now</a>
+          </div>
+        <% } %>
       </div>
     </main>
     <%- include('../partials/footer') %>
