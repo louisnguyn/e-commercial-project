@@ -71,16 +71,19 @@
         <% } else { %>
           <p>Please <a href="/login">log in</a> to leave a review.</p>
         <% } %>
-        <div class="reviewsList">
+        <div class="reviewsList" style="text-align: center;">
           <% if (reviews && reviews.length > 0) { %>
-            <% reviews.forEach(r => { %>
+            <!-- <% reviews.forEach(r => { %>
               <div class="reviewCard">
                 <strong><%= r.reviewer_name %></strong>
                 <span style="color:gold;"><i class="fa-solid fa-star"></i> <%= r.rating %></span>
                 <p><%= r.feedback %></p>
                 <small><%= new Date(r.createdat).toLocaleString() %></small>
               </div>
-            <% }) %>
+            <% }) %> -->
+            <a href="/products/<%= product.id %>/reviews" class="btn">
+              <i class="fa-solid fa-list"></i> See All Reviews
+            </a>
           <% } else { %>
             <p>No reviews yet for this product. Be the first one to review this product.</p>
           <% } %>

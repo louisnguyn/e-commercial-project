@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head', { title }) %>
+  <body>
+    <%- include('../partials/header', { currentPage: 'products' }) %>
+    <main>
+      <div class="reviewPageContainer">
+        <div class="reviewPageHeader">
+          <a href="/products/<%= product.id %>" class="btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Product
+          </a>
+          <h1><%= product.title %> - All Reviews</h1>
+        </div>
+        <div class="allReviews">
+            <% reviews.forEach(review => { %>
+              <div class="reviewCard">
+                <div class="reviewHeader">
+                  <strong><%= review.reviewer_name %></strong>
+                  <div class="reviewRating">
+                    <% for(let i = 0; i < review.rating; i++) { %>
+                      <i class="fa-solid fa-star" style="color: gold;"></i>
+                    <% } %>
+                    <% for(let i = review.rating; i < 5; i++) { %>
+                      <i class="fa-solid fa-star" style="color: #ddd;"></i>
+                    <% } %>
+                  </div>
+                </div>
+                <p class="reviewText"><%= review.feedback %></p>
+                <small class="reviewDate">
+                  <%= new Date(review.createdat).toLocaleString() %>
+                </small>
+              </div>
+            <% }) %>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

@@ -24,3 +24,13 @@ export async function getAverageRatingBySellerId(sellerid) {
         WHERE r.sellerid = ${sellerid}
     `;
 }
+
+export async function hasUserReviewProduct(productId, userId){
+    const result = await sql`
+        SELECT EXISTS(
+            SELECT 1 FROM review 
+            WHERE productid = ${productId} AND userid = ${userId}
+        ) as has_reviewed
+    `;
+    return result[0].has_reviewed;
+}

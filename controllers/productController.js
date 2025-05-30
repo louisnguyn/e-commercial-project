@@ -1,5 +1,5 @@
 import { getAllAvailableProducts, getProductById, getProductsByUserId, searchProduct, getFilteredAndSortedProducts, createProduct, updateProduct, deleteProduct, toggleProductStatus } from '../models/productModel.js';
-import { addReview, getReviewsByProductId, getAverageRatingBySellerId } from '../models/reviewModel.js';
+import { addReview, getReviewsByProductId, getAverageRatingBySellerId, hasUserReviewProduct } from '../models/reviewModel.js';
 import { format } from 'date-fns';
 
 export async function renderProductPage(req, res, next) {
@@ -51,6 +51,21 @@ export async function renderProductDescriptionPage(req, res, next) {
             reviews,
             avgRating: avgData[0]?.avg_rating,
             totalReviews: avgData[0]?.total_reviews,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export async function renderProductReviewsPage(req, res, next) {
+    const { id: productId } = req.params;
+    try {
+        const [product] = await getProductById(productId);
+        const reviews = await getReviewsByProductId(productId);
+        res.render('product/productReviews.ejs', {
+            title: `Reviews - ${product.title}`,
+            product,
+            reviews
         });
     } catch (error) {
         next(error);
@@ -174,8 +189,12 @@ export async function submitReview(req, res, next) {
         {
             return res.json({success: false, message: "Can not review your own product!"})
         }
+        const hasReviewed = await hasUserReviewProduct(productId, userId);
+        if (hasReviewed) {
+            return res.json({success: false, message: "You have already reviewed this product!"});
+        }
         await addReview({ productId, sellerId: product.userid, userId, rating, feedback });
-        res.json({ success: true, message: "Review submitted successfully!" });
+        return res.json({ success: true, message: "Review submitted successfully!" });
     } catch (error) {
         next(error);
     }

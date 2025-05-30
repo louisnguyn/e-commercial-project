@@ -217,6 +217,7 @@ button:not(.dropdownButton), .btn {
     border: 1.5px solid black;
     box-shadow: 4px 4px 0px 1px black;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 button:not(.dropdownButton) i, .btn i {
  margin-right: 10px;
@@ -746,6 +747,52 @@ button:active, .btn:active {
   border-radius: 6px;
   padding: 15px;
   margin-bottom: 15px;
+}
+
+/* All product reviews */
+.reviewPageContainer {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.reviewPageHeader {
+  margin-bottom: 30px;
+}
+
+.reviewPageHeader h1 {
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
+.allReviews {
+  display: grid;
+  gap: 20px;
+}
+
+.reviewCard {
+  background: white;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.reviewText {
+  color: #444;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+
+.reviewDate {
+  color: #888;
+  font-size: 0.9rem;
 }
 
 /* Sell tab */
