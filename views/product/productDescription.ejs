@@ -9,39 +9,86 @@
             <img src="<%= product.image %>" alt="<%= product.title %>" />
         </div>
         <div class="productDetailsSection">
-            <h1 class="productTitle"><%= product.title %></h1>
-            <p class="productPrice">$<%= product.price %></p>
-            <% if (product.quantity < 3) { %>
-                <p class="stockStatus lowStock">Only <%= product.quantity %> left! Be quick!</p>
-            <% } else { %>
-                <p class="stockStatus inStock">In stock: <%= product.quantity %> available products</p>
-            <% } %>
-            <form action="/cart/add" method="POST" class="addToCartForm">
-                <input type="hidden" name="productId" value="<%= product.id %>" />
-                <div class="quantityInput">
+          <h1 class="productTitle"><%= product.title %></h1>
+          <p class="productPrice">$<%= product.price %></p>
+          <% if (product.quantity < 3) { %>
+              <p class="stockStatus lowStock">Only <%= product.quantity %> left! Be quick!</p>
+          <% } else { %>
+              <p class="stockStatus inStock">In stock: <%= product.quantity %> available products</p>
+          <% } %>
+          <form action="/cart/add" method="POST" class="addToCartForm">
+              <input type="hidden" name="productId" value="<%= product.id %>" />
+              <div class="quantityInput">
                 <label for="quantity">Quantity:</label>
-                <input 
-                    type="number" 
-                    id="quantity" 
-                    name="quantity" 
-                    value="1" 
-                    min="1" 
-                    max="<%= product.quantity %>" 
-                    required 
-                />
-                </div>
-                <button type="submit" class="addToCartBtn">
-                <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                </button>
-            </form>
-            <div>
-                <h2>Description</h2>
-                <p class="productDescription"><%= product.description %></p>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= product.quantity %>" required />
+              </div>
+              <button type="submit" class="addToCartBtn">Add to Cart</button>
+          </form>
+          <div>
+              <h2>Description</h2>
+              <p class="productDescription"><%= product.description %></p>
+          </div>
+        </div>
+      </div>
+      <div class="reviewSection">
+        <h2>Reviews</h2>
+        <div class="reviewSummaryCard">
+          <h3><%= product.seller_name %></h3>
+          <div class="reviewSummaryDetails">
+            <p>
+              <span class="averageRating"><%= avgRating ? Number(avgRating).toFixed(1) : 'No review yet' %><i class="fa-solid fa-star" style="color: gold; margin-left:10px;"></i></span>
+            </p>
+            <p>Total Reviews: <%= totalReviews || 0 %></p>
+            <a href="/chat" class="btn" style="text-decoration: none;" >
+              <i class="fa-solid fa-message"></i> Chat with Seller
+            </a>
+          </div>
+        </div>
+        <% if (user) { %>
+          <form class="reviewForm" action="/products/<%= product.id %>/add-review" method="POST">
+            <input type="hidden" name="productId" value="<%= product.id %>" />
+            <div class="reviewGroup">
+              <div style="text-align: left; width: 100%;">
+                <label for="rating">Rating:</label>
+              </div>
+              <div class="starRating">
+                <% for(let i=5; i>=1; i--) { %>
+                  <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>"/>
+                  <label for="star<%= i %>" title="<%= i %> stars"><i class="fa-solid fa-star"></i></label>
+                <% } %>
+              </div>
             </div>
+            <div class="reviewGroup">
+              <div style="text-align: left; width: 100%;">
+                <label for="feedback">Feedback:</label>
+              </div>
+              <textarea id="feedback" name="feedback" rows="3"></textarea>
+            </div>
+            <div style="text-align:center;">
+              <button type="submit" class="submitReviewBtn">Submit Review</button>
+            </div>
+          </form>
+        <% } else { %>
+          <p>Please <a href="/login">log in</a> to leave a review.</p>
+        <% } %>
+        <div class="reviewsList">
+          <% if (reviews && reviews.length > 0) { %>
+            <% reviews.forEach(r => { %>
+              <div class="reviewCard">
+                <strong><%= r.reviewer_name %></strong>
+                <span style="color:gold;"><i class="fa-solid fa-star"></i> <%= r.rating %></span>
+                <p><%= r.feedback %></p>
+                <small><%= new Date(r.createdat).toLocaleString() %></small>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p>No reviews yet for this product. Be the first one to review this product.</p>
+          <% } %>
         </div>
       </div>
     </main>
     <%- include('../partials/footer') %>
   </body>
   <script src="/scripts/addToCartMessage.js"></script>
+  <script src="/scripts/submitReviewMessage.js"></script>
 </html>

@@ -7,6 +7,7 @@ productRouter.get('/purchase',productController.renderProductPage);
 productRouter.get('/sell', productController.renderProductPage); 
 productRouter.get('/search', productController.searchProducts);
 productRouter.get('/:id', productController.renderProductDescriptionPage);
+productRouter.post('/:id/add-review', productController.submitReview);
 
 productRouter.get('/sell/create', productController.renderCreateListingPage);
 productRouter.post('/sell/create', productController.createListing);

@@ -1,5 +1,7 @@
 import { getAllAvailableProducts, getProductById, getProductsByUserId, searchProduct, getFilteredAndSortedProducts, createProduct, updateProduct, deleteProduct, toggleProductStatus } from '../models/productModel.js';
+import { addReview, getReviewsByProductId, getAverageRatingBySellerId } from '../models/reviewModel.js';
 import { format } from 'date-fns';
+
 export async function renderProductPage(req, res, next) {
     try {
         const currentTab = req.path.includes('sell') ? 'sell' : 'purchase';
@@ -41,9 +43,14 @@ export async function renderProductDescriptionPage(req, res, next) {
         if (!product) {
             return res.status(404).send('Product not found');
         }
+        const reviews = await getReviewsByProductId(productId);
+        const avgData = await getAverageRatingBySellerId(product.userid);
         res.render('product/productDescription.ejs', {
             title: product.title,
             product,
+            reviews,
+            avgRating: avgData[0]?.avg_rating,
+            totalReviews: avgData[0]?.total_reviews,
         });
     } catch (error) {
         next(error);
@@ -154,5 +161,23 @@ export async function toggleListingStatus(req, res, next) {
     }
 }
 
-
+export async function submitReview(req, res, next) {
+    try {
+        const userId = req.session.user?.id;
+        const { productId, rating, feedback } = req.body;
+        const [product] = await getProductById(productId);
+        if (!rating || !feedback)
+        {
+            return res.json({success: false, message: "Failed to submit review!"})
+        }
+        if (userId == product.userid)
+        {
+            return res.json({success: false, message: "Can not review your own product!"})
+        }
+        await addReview({ productId, sellerId: product.userid, userId, rating, feedback });
+        res.json({ success: true, message: "Review submitted successfully!" });
+    } catch (error) {
+        next(error);
+    }
+}
 

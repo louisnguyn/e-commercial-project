@@ -4,7 +4,12 @@ export async function getAllAvailableProducts() {
     return await sql `SELECT * FROM product WHERE status = 'Available'`;
 }
 export async function getProductById(productId) {
-    return await sql`SELECT * FROM product WHERE id = ${productId}`;
+    return await sql`
+        SELECT p.*, u.fullname AS seller_name
+        FROM product p
+        JOIN users u ON p.userid = u.id
+        WHERE p.id = ${productId}
+    `;
 }
 
 export async function getProductsByUserId(userId) {
