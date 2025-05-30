@@ -127,7 +127,6 @@ export async function renderEditListingPage(req, res, next) {
         if (!product) {
             return res.status(404).send('Product not found');
         }
-        console.log(product);
         res.render('product/editListing.ejs', {
             title: 'Edit Listing', 
             product 

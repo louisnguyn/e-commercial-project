@@ -36,7 +36,7 @@
           <h3><%= product.seller_name %></h3>
           <div class="reviewSummaryDetails">
             <p>
-              <span class="averageRating"><%= avgRating ? Number(avgRating).toFixed(1) : 'No review yet' %><i class="fa-solid fa-star" style="color: gold; margin-left:10px;"></i></span>
+              <span class="averageRating"><%= avgRating ? Number(avgRating).toFixed(1) : 'No review' %><i class="fa-solid fa-star" style="color: gold; margin-left:10px;"></i></span>
             </p>
             <p>Total Reviews: <%= totalReviews || 0 %></p>
             <a href="/chat" class="btn" style="text-decoration: none;" >
@@ -73,14 +73,6 @@
         <% } %>
         <div class="reviewsList" style="text-align: center;">
           <% if (reviews && reviews.length > 0) { %>
-            <!-- <% reviews.forEach(r => { %>
-              <div class="reviewCard">
-                <strong><%= r.reviewer_name %></strong>
-                <span style="color:gold;"><i class="fa-solid fa-star"></i> <%= r.rating %></span>
-                <p><%= r.feedback %></p>
-                <small><%= new Date(r.createdat).toLocaleString() %></small>
-              </div>
-            <% }) %> -->
             <a href="/products/<%= product.id %>/reviews" class="btn">
               <i class="fa-solid fa-list"></i> See All Reviews
             </a>

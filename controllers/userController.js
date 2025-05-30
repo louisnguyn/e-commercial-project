@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import sql from '../config/db.js';
+import { createUser, getUserByEmail } from '../models/userModel.js';
 
 export async function renderLoginPage(req, res, next) {
     try {
@@ -31,10 +31,7 @@ export async function registerUser(req,res, next)
         }
         const hashedPassword = await bcrypt.hash(password,10);
         const hashedAnswer = await bcrypt.hash(securityAnswer,10);
-        await sql`
-            INSERT INTO users (fullname,email,phonenumber,password,securityquestion,securityanswer)
-            VALUES (${fullName}, ${email},${phoneNumber}, ${hashedPassword}, ${securityQuestion}, ${hashedAnswer})
-        `;
+        await createUser({ fullName, email, phoneNumber, hashedPassword, securityQuestion, hashedAnswer });
         res.redirect('/login');
     } catch (error){
         next(error);
@@ -44,9 +41,7 @@ export async function registerUser(req,res, next)
 export async function loginUser(req, res, next) {
     try {
         const { email, password } = req.body;
-        const user = await sql`
-            SELECT * FROM users WHERE email = ${email}
-        `;
+        const user = await getUserByEmail(email)
 
         if (user.length === 0) {
             return res.status(400).send('Invalid email or password');
@@ -62,7 +57,6 @@ export async function loginUser(req, res, next) {
             email: user[0].email,
         };
         console.log(req.session.user);
-
         res.redirect('/');
     } catch (error) {
         next(error);

@@ -13,15 +13,15 @@
             </div>
             <div class="profileFormGroup">
               <label for="fullName">Full Name</label>
-              <input type="text" id="fullName" name="fullName" value="Louis Nguyen"/>
+              <input type="text" id="fullName" name="fullName" value="<%= user.fullname %>"/>
             </div>
             <div class="profileFormGroup">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" value="louis@example.com"/>
+              <input type="email" id="email" name="email" value="<%= user.email %>"/>
             </div>
             <div class="profileFormGroup">
               <label for="phoneNumber">Phone Number</label>
-              <input type="text" id="phoneNumber" name="phoneNumber" value="+61412345678"/>
+              <input type="text" id="phoneNumber" name="phoneNumber" value="<%= user.phonenumber %>"/>
             </div>
             <button type="submit" class="btn">Save Changes</button>
           </form>

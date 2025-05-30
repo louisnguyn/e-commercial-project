@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head', { title }) %>
+  <body>
+    <%- include('../partials/header', { currentPage: 'profile' }) %>
+    <main>
+      <div class="userRatingContainer">
+        <h1>My Ratings</h1>
+        <% if (avgRating) { %>
+            <div class="ratingOverview">
+                <div class="ratingSummary">
+                    <div class="averageRatingBox">
+                    <span class="ratingNumber">
+                        <%= Number(avgRating).toFixed(1) %><i class="fa-solid fa-star" style="color: gold; margin-left:10px;"></i>
+                    </span>
+                    <span class="totalReviews">
+                        Based on <%= totalReviews %> reviews
+                    </span>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <div class="reviewsList">
+            <% if (reviews && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <div class="reviewCard">
+                        <div class="reviewProduct">
+                            <img src="<%= review.product_image %>" alt="<%= review.product_title %>" />
+                            <div class="productInfo">
+                                <h3><%= review.product_title %></h3>
+                                <div class="reviewData">
+                                    <span class="reviewerName">Reviewed by <%= review.reviewer_name %></span>
+                                    <span class="reviewDate">
+                                        <%= new Date(review.createdat).toLocaleDateString('en-US', { 
+                                        year: 'numeric', 
+                                        month: 'long', 
+                                        day: 'numeric' 
+                                        }) %>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reviewContent">
+                            <div class="ratingStars">
+                                <% for(let i = 0; i < review.rating; i++) { %>
+                                    <i class="fa-solid fa-star" style="color: gold;"></i>
+                                <% } %>
+                                <% for(let i = review.rating; i < 5; i++) { %>
+                                    <i class="fa-solid fa-star" style="color: #ddd;"></i>
+                                <% } %>
+                            </div>
+                            <p class="reviewText"><%= review.feedback %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="noReviews">
+                <i class="fa-solid fa-star emptyIcon"></i>
+                <h2>No Reviews Yet</h2>
+                <p>When customers review your products, they'll appear here.</p>
+                </div>
+            <% } %>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>
