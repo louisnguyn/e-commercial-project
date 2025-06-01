@@ -8,12 +8,12 @@ export async function getProductById(productId) {
         SELECT p.*, u.fullname AS seller_name
         FROM product p
         JOIN users u ON p.userid = u.id
-        WHERE p.id = ${productId}
+        WHERE p.id = ${productId} 
     `;
 }
 
 export async function getProductsByUserId(userId) {
-    return await sql`SELECT * FROM product WHERE userid = ${userId}`;
+    return await sql`SELECT * FROM product WHERE userid = ${userId} ORDER BY id`;
 }
 export async function searchProduct(query) {
     return await sql`
